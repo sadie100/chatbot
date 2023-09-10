@@ -5,8 +5,8 @@
 }
 .speech-bubble {
   position: relative;
-  background: lightcyan;
-  /* border: 3px solid black; */
+  background: white;
+  border: 3px solid black;
   border-radius: 0.4em;
   top: 300px;
   left: 500px;
@@ -22,13 +22,16 @@
   width: 0;
   height: 0;
   border: 29px solid transparent;
-  border-right-color: lightcyan;
+  border-right-color: white;
   border-left: 0;
   border-top: 0;
   margin-top: -14.5px;
   margin-left: -29px;
 }
 
+.bubble_text {
+  padding: 10px;
+}
 .user_speach {
   position: absolute;
   bottom: 3%;
@@ -41,6 +44,63 @@
   padding: 10px;
 }
 
-.submit {
+.submit_btn {
   padding: 10px;
+}
+
+.not-visible {
+  visibility: hidden;
+}
+
+.load-wrapp {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* margin: 0 10px 10px 0;
+  padding: 20px 20px 20px; */
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.load-wrapp p {
+  padding: 0 0 20px;
+}
+.load-wrapp:last-child {
+  margin-right: 0;
+}
+
+.line {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  background-color: #4b9cdb;
+}
+
+.load-3 .line:nth-last-child(1) {
+  animation: loadingC 0.6s 0.1s linear infinite;
+}
+.load-3 .line:nth-last-child(2) {
+  animation: loadingC 0.6s 0.2s linear infinite;
+}
+.load-3 .line:nth-last-child(3) {
+  animation: loadingC 0.6s 0.3s linear infinite;
+}
+.l-3 {
+  animation-delay: 0.72s;
+}
+
+@keyframes loadingC {
+  0 {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(0, 15px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }

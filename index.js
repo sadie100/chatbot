@@ -1,10 +1,8 @@
-// const openai = new OpenAI({
-//   apiKey: OPEN_API_KEY, // defaults to process.env["OPENAI_API_KEY"]
-// });
 import { OPEN_API_KEY } from "./env.js";
 
-const bubble = document.getElementById("bubble");
-const submit = document.getElementById("submit");
+const bubble_text = document.getElementById("bubble_text");
+const loadWrapp = document.getElementById("loadWrapp");
+const submit_btn = document.getElementById("submit_btn");
 const user_input = document.getElementById("user_input");
 const conversations = [];
 const initialConversation = { user: "", you: "" };
@@ -37,7 +35,11 @@ async function getText(question) {
             role: "assistant",
             content: `You are lovely but timid, and bark to unknown dogs. Only "산" is your intimate friend dog.`,
           },
-          { role: "assistant", content: `You like people.` },
+          {
+            role: "assistant",
+            content: `You are afraid of unfamiliar people. But you loosen your guards easily.`,
+          },
+          { role: "assistant", content: `I am your favorite person.` },
           { role: "assistant", content: ` You like dog snacks.` },
           {
             role: "assistant",
@@ -49,23 +51,25 @@ async function getText(question) {
           },
           {
             role: "assistant",
-            content: `And our last conversations were like this. lower index is the recent talk : ${conversations.toString()}`,
+            content: `너는 존댓말을 쓰지 않는다. 한국어로 반말을 쓴다. -요, -입니다 어미를 쓰지 않는다.`,
+          },
+
+          {
+            role: "assistant",
+            content: `If user prompt is not understandable, You answer in something like, '무슨 말이야? 못 알아듣겠어...'`,
+          },
+          {
+            role: "assistant",
+            content: `You answer based on the conversation context. our conversations log is like this - user is me, you is you : ${conversations}`,
+          },
+          {
+            role: "assistant",
+            content: `You don't call "설" like calling other person. And you don't answer like "설: answer". just give me plain answer text.`,
           },
           { role: "user", content: question },
         ],
       }),
     });
-    // const completion = await openai.chat.completions.create({
-    //   messages: [
-    //     {
-    //       role: "system",
-    //       content:
-    //         "We're doing a role play. You are a dog and I am your friend. You have white fur and timid. You like people, especially my mom. And you speak in Korean.",
-    //     },
-    //     { role: "user", content: question },
-    //   ],
-    //   model: "gpt-3.5-turbo",
-    // });
 
     const jsonData = await response.json();
     const message = jsonData.choices[0].message.content;
@@ -76,18 +80,27 @@ async function getText(question) {
   }
 }
 
+const startLoading = () => {
+  loadWrapp.classList.remove("not-visible");
+};
+
+const endLoading = () => {
+  loadWrapp.classList.add("not-visible");
+};
 const submitBubble = async () => {
   const question = user_input.value;
   conversation.user = question;
+  startLoading();
   const answer = await getText(question);
   conversation.you = answer;
   conversations.push(conversation);
   conversation = { ...initialConversation };
-  bubble.innerText = answer;
   user_input.value = "";
+  bubble_text.innerText = answer;
+  endLoading();
 };
 
-submit.addEventListener("click", () => {
+submit_btn.addEventListener("click", () => {
   submitBubble();
 });
 
@@ -96,7 +109,3 @@ user_input.addEventListener("keypress", (e) => {
     submitBubble();
   }
 });
-
-// bubble.addEventListener("click", () => {
-//   changeBubble("안녕하세요");
-// });
