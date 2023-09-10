@@ -1,7 +1,7 @@
 // const openai = new OpenAI({
 //   apiKey: OPEN_API_KEY, // defaults to process.env["OPENAI_API_KEY"]
 // });
-const OPEN_API_KEY = process.env.OPEN_API_KEY;
+import { OPEN_API_KEY } from "./env.js";
 
 const bubble = document.getElementById("bubble");
 const submit = document.getElementById("submit");
